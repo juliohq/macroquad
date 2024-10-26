@@ -1,12 +1,28 @@
 //! Cross platform system time access and FPS counters.
 
-use crate::get_context;
+use crate::{color::Color, get_context, text::draw_text};
+
+/// Draws the current FPS on the screen.
+pub fn draw_fps(x: f32, y: f32, font_size: f32, color: Color) {
+    draw_text(&format!("FPS: {}", get_fps()), x, y, font_size, color);
+}
 
 /// Returns current FPS
 pub fn get_fps() -> i32 {
     let context = get_context();
 
     (1. / context.frame_time) as i32
+}
+
+/// Draws the duration in seconds of the last frame drawn on the screen.
+pub fn draw_frame_time(x: f32, y: f32, font_size: f32, color: Color) {
+    draw_text(
+        &format!("Frame Time: {}", get_frame_time() * 1000.),
+        x,
+        y,
+        font_size,
+        color,
+    );
 }
 
 /// Returns duration in seconds of the last frame drawn
